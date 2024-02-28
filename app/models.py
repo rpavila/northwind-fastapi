@@ -29,6 +29,8 @@ class Territory(Base):
     territory_description = Column(String(60), nullable=False)
     region_id = Column(SmallInteger, ForeignKey("region.region_id"), nullable=False)
 
+    region = relationship("Region", back_populates="territories")
+
 
 class Shipper(Base):
     __tablename__ = 'shippers'
@@ -85,6 +87,8 @@ class Product(Base):
     category_id = Column(SmallInteger, ForeignKey("categories.category_id"))
     supplier_id = Column(SmallInteger, ForeignKey("suppliers.supplier_id"))
 
+    category = relationship("Category", back_populates="products")
+    supplier = relationship("Supplier", back_populates="products")
     orders_details = relationship("OrderDetail", back_populates="product")
 
 
@@ -97,6 +101,9 @@ class OrderDetail(Base):
 
     order_id = Column(SmallInteger, ForeignKey('orders.order_id'), primary_key=True, nullable=False)
     product_id = Column(SmallInteger, ForeignKey('products.product_id'), primary_key=True, nullable=False)
+
+    product = relationship("Product", back_populates="orders_details")
+    order = relationship("Order", back_populates="orders_details")
 
 
 class Order(Base):
@@ -119,6 +126,9 @@ class Order(Base):
     employee_id = Column(SmallInteger, ForeignKey('employees.employee_id'))
 
     orders_details = relationship("OrderDetail", back_populates="order")
+    shipper = relationship("Shipper", back_populates="orders")
+    employee = relationship("Employee", back_populates="orders")
+    customer = relationship("Customer", back_populates="orders")
 
 
 class Employee(Base):
@@ -143,8 +153,8 @@ class Employee(Base):
 
     reports_to = Column(SmallInteger, ForeignKey("employees.employee_id"))
 
-    employees = relationship("Employee", back_populates="manager")
-    manager = relationship("Employee", back_populates="employees")
+    # employees = relationship("Employee", back_populates="manager")
+    # manager = relationship("Employee", back_populates="employees")
     orders = relationship("Order", back_populates="employee")
 
 
