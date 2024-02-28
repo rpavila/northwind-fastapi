@@ -169,7 +169,7 @@ class CustomerDemographics(Base):
     customer_desc = Column(Text)
 
 
-class Customers(Base):
+class Customer(Base):
     __tablename__ = 'customers'
 
     customer_id = Column(String(5), primary_key=True, nullable=False)
