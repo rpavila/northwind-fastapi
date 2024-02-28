@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-class CategoriesModel(BaseModel):
+class CategoriesSchema(BaseModel):
     category_id: int
     category_name: str
     description: Optional[str]
@@ -13,7 +13,7 @@ class CategoriesModel(BaseModel):
         orm_mode = True
 
 
-class CustomerCustomerDemoModel(BaseModel):
+class CustomerCustomerDemoSchema(BaseModel):
     customer_id: str
     customer_type_id: str
 
@@ -21,7 +21,7 @@ class CustomerCustomerDemoModel(BaseModel):
         orm_mode = True
 
 
-class CustomerDemographicsModel(BaseModel):
+class CustomerDemographicsSchema(BaseModel):
     customer_type_id: str
     customer_desc: Optional[str]
 
@@ -29,7 +29,7 @@ class CustomerDemographicsModel(BaseModel):
         orm_mode = True
 
 
-class CustomersModel(BaseModel):
+class CustomerSchema(BaseModel):
     customer_id: str
     company_name: str
     contact_name: Optional[str]
@@ -46,7 +46,7 @@ class CustomersModel(BaseModel):
         orm_mode = True
 
 
-class EmployeesModel(BaseModel):
+class EmployeesSchema(BaseModel):
     employee_id: int
     last_name: str
     first_name: str
@@ -70,7 +70,7 @@ class EmployeesModel(BaseModel):
         orm_mode = True
 
 
-class EmployeeTerritoriesModel(BaseModel):
+class EmployeeTerritoriesSchema(BaseModel):
     employee_id: int
     territory_id: str
 
@@ -78,7 +78,7 @@ class EmployeeTerritoriesModel(BaseModel):
         orm_mode = True
 
 
-class OrderDetailsModel(BaseModel):
+class OrderDetailsSchema(BaseModel):
     order_id: int
     product_id: int
     unit_price: float
@@ -89,7 +89,7 @@ class OrderDetailsModel(BaseModel):
         orm_mode = True
 
 
-class OrdersModel(BaseModel):
+class OrdersSchema(BaseModel):
     order_id: int
     customer_id: Optional[str]
     employee_id: Optional[int]
@@ -109,7 +109,7 @@ class OrdersModel(BaseModel):
         orm_mode = True
 
 
-class ProductsModel(BaseModel):
+class ProductsSchema(BaseModel):
     product_id: int
     product_name: str
     supplier_id: Optional[int]
@@ -125,7 +125,7 @@ class ProductsModel(BaseModel):
         orm_mode = True
 
 
-class RegionModel(BaseModel):
+class RegionSchema(BaseModel):
     region_id: int
     region_description: str
 
@@ -133,7 +133,7 @@ class RegionModel(BaseModel):
         orm_mode = True
 
 
-class ShippersModel(BaseModel):
+class ShippersSchema(BaseModel):
     shipper_id: int
     company_name: str
     phone: Optional[str]
@@ -142,7 +142,7 @@ class ShippersModel(BaseModel):
         orm_mode = True
 
 
-class SuppliersModel(BaseModel):
+class SuppliersSchema(BaseModel):
     supplier_id: int
     company_name: str
     contact_name: Optional[str]
@@ -160,7 +160,7 @@ class SuppliersModel(BaseModel):
         orm_mode = True
 
 
-class TerritoriesModel(BaseModel):
+class TerritoriesSchema(BaseModel):
     territory_id: str
     territory_description: str
     region_id: int
@@ -169,7 +169,7 @@ class TerritoriesModel(BaseModel):
         orm_mode = True
 
 
-class UsStatesModel(BaseModel):
+class UsStatesSchema(BaseModel):
     state_id: int
     state_name: Optional[str]
     state_abbr: Optional[str]
