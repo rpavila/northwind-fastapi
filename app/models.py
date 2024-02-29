@@ -7,7 +7,7 @@ from .database import Base
 class USState(Base):
     __tablename__ = "us_states"
 
-    state_id = Column(Integer, primary_key=True)
+    id = Column('state_id', Integer, primary_key=True)
     state_name = Column(String(100))
     state_abbr = Column(String(2))
     state_region = Column(String(50))
@@ -16,7 +16,7 @@ class USState(Base):
 class Region(Base):
     __tablename__ = "region"
 
-    region_id = Column(Integer, primary_key=True)
+    id = Column('region_id', Integer, primary_key=True)
     region_description = Column(String)
 
     territories = relationship("Territory", back_populates="region")
@@ -25,7 +25,7 @@ class Region(Base):
 class Territory(Base):
     __tablename__ = "territories"
 
-    territory_id = Column(String(20), primary_key=True, nullable=False)
+    id = Column('territory_id', String(20), primary_key=True, nullable=False)
     territory_description = Column(String(60), nullable=False)
     region_id = Column(SmallInteger, ForeignKey("region.region_id"), nullable=False)
 
@@ -35,7 +35,7 @@ class Territory(Base):
 class Shipper(Base):
     __tablename__ = 'shippers'
 
-    shipper_id = Column(SmallInteger, primary_key=True, nullable=False)
+    id = Column('shipper_id', SmallInteger, primary_key=True, nullable=False)
     company_name = Column(String(40), nullable=False)
     phone = Column(String(24))
 
@@ -45,7 +45,7 @@ class Shipper(Base):
 class Category(Base):
     __tablename__ = "categories"
 
-    category_id = Column(Integer, primary_key=True)
+    id = Column('category_id', Integer, primary_key=True)
     category_name = Column(String)
     description = Column(Text)
     picture = Column(LargeBinary)
@@ -56,7 +56,7 @@ class Category(Base):
 class Supplier(Base):
     __tablename__ = "suppliers"
 
-    supplier_id = Column(SmallInteger, primary_key=True, nullable=False)
+    id = Column('supplier_id', SmallInteger, primary_key=True, nullable=False)
     company_name = Column(String(40), nullable=False)
     contact_name = Column(String(30))
     contact_title = Column(String(30))
@@ -75,7 +75,7 @@ class Supplier(Base):
 class Product(Base):
     __tablename__ = "products"
 
-    product_id = Column(SmallInteger, primary_key=True, nullable=False)
+    id = Column('product_id', SmallInteger, primary_key=True, nullable=False)
     product_name = Column(String(40), nullable=False)
     quantity_per_unit = Column(String(20))
     unit_price = Column(Float)
@@ -109,7 +109,7 @@ class OrderDetail(Base):
 class Order(Base):
     __tablename__ = 'orders'
 
-    order_id = Column(SmallInteger, primary_key=True, nullable=False)
+    id = Column('order_id', SmallInteger, primary_key=True, nullable=False)
     order_date = Column(Date)
     required_date = Column(Date)
     shipped_date = Column(Date)
@@ -134,7 +134,7 @@ class Order(Base):
 class Employee(Base):
     __tablename__ = "employees"
 
-    employee_id = Column(Integer, primary_key=True)
+    id = Column('employee_id', Integer, primary_key=True)
     first_name = Column(String(50))
     last_name = Column(String(50))
     title = Column(String(100))
@@ -182,7 +182,7 @@ class CustomerDemographics(Base):
 class Customer(Base):
     __tablename__ = 'customers'
 
-    customer_id = Column(String(5), primary_key=True, nullable=False)
+    id = Column('customer_id', String(5), autoincrement=False, primary_key=True)
     company_name = Column(String(40), nullable=False)
     contact_name = Column(String(30))
     contact_title = Column(String(30))
