@@ -190,3 +190,43 @@ class CustomerCreate(BaseModel):
     country: Optional[str]
     phone: Optional[str]
     fax: Optional[str]
+
+
+class USStateCreate(BaseModel):
+    state_name: str
+    state_abbr: str
+    state_region: str
+
+
+class RegionCreate(BaseModel):
+    region_description: str
+
+
+class TerritoryCreate(BaseModel):
+    region_id: int
+    region_description: str
+
+
+class ShipperCreate(BaseModel):
+    company_name: str
+    phone: str
+
+
+class CategoryCreate(BaseModel):
+    category_name: str
+    description: Optional[str]
+    picture: Optional[bytes]
+
+
+class SupplierCreate(BaseModel):
+    company_name: str
+    contact_name: Optional[str]
+    contact_title: Optional[str]
+    address: Optional[str]
+    city: Optional[str]
+    region: Optional[str]
+    postal_code: Optional[str]
+    country: Optional[str]
+    phone: Optional[str]
+    fax: Optional[str]
+    homepage: Optional[str]
