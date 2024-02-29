@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-class CategoriesSchema(BaseModel):
+class CategorySchema(BaseModel):
     id: int
     category_name: str
     description: Optional[str]
@@ -47,11 +47,11 @@ class CustomerSchema(BaseModel):
 
 
 class EmployeeSchema(BaseModel):
-    employee_id: int
+    id: int
     last_name: str
     first_name: str
     title: Optional[str]
-    title_of_courtesy: Optional[str]
+    # title_of_courtesy: Optional[str]
     birth_date: Optional[date]
     hire_date: Optional[date]
     address: Optional[str]
@@ -78,7 +78,7 @@ class EmployeeTerritoriesSchema(BaseModel):
         orm_mode = True
 
 
-class OrderDetailsModel(BaseModel):
+class OrderDetailsSchema(BaseModel):
     order_id: int
     product_id: int
     unit_price: float
@@ -89,7 +89,7 @@ class OrderDetailsModel(BaseModel):
         orm_mode = True
 
 
-class OrdersSchema(BaseModel):
+class OrderSchema(BaseModel):
     id: int
     customer_id: Optional[str]
     employee_id: Optional[int]
@@ -109,7 +109,7 @@ class OrdersSchema(BaseModel):
         orm_mode = True
 
 
-class ProductsSchema(BaseModel):
+class ProductSchema(BaseModel):
     id: int
     product_name: str
     supplier_id: Optional[int]
@@ -133,7 +133,7 @@ class RegionSchema(BaseModel):
         orm_mode = True
 
 
-class ShippersSchema(BaseModel):
+class ShipperSchema(BaseModel):
     id: int
     company_name: str
     phone: Optional[str]
@@ -142,7 +142,7 @@ class ShippersSchema(BaseModel):
         orm_mode = True
 
 
-class SuppliersSchema(BaseModel):
+class SupplierSchema(BaseModel):
     id: int
     company_name: str
     contact_name: Optional[str]
