@@ -22,5 +22,5 @@ async def read_all(skip: int = 0, limit: int = 100, db: Session = SessionDep):
 async def read_one(pk: str, db: Session = SessionDep):
     instance = crud_customer.get(db, id=pk)
     if instance is None:
-        raise HTTPException(status_code=404, detail="Customers not found")
+        raise HTTPException(status_code=404, detail="Customer not found")
     return instance
