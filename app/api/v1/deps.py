@@ -1,22 +1,8 @@
-from collections.abc import Generator
-from typing import Annotated
-
-from fastapi import Depends
-
-from app.database import SessionLocal
+from fastapi import Depends, Request
 
 
-# def get_db() -> Generator:
-#     with SessionLocal() as session:
-#         yield session
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+def get_db(request: Request):
+    return request.state.db
 
 
-# SessionDep = Annotated[SessionLocal, Depends(get_db)]
 SessionDep = Depends(get_db)

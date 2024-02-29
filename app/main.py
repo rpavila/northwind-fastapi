@@ -2,7 +2,6 @@ from fastapi import FastAPI, Request, Response
 
 from app.api.v1.api import api_router
 from app.database import SessionLocal
-from app.routers.customers.router import router as router_customer
 
 app = FastAPI()
 
