@@ -4,7 +4,7 @@ from typing import Optional
 
 
 class CategoriesModel(BaseModel):
-    category_id: int
+    id: int
     category_name: str
     description: Optional[str]
     picture: Optional[bytes]
@@ -14,7 +14,7 @@ class CategoriesModel(BaseModel):
 
 
 class CustomerCustomerDemoModel(BaseModel):
-    customer_id: str
+    id: str
     customer_type_id: str
 
     class Config:
@@ -30,7 +30,7 @@ class CustomerDemographicsModel(BaseModel):
 
 
 class CustomersModel(BaseModel):
-    customer_id: str
+    id: str
     company_name: str
     contact_name: Optional[str]
     contact_title: Optional[str]
@@ -47,7 +47,7 @@ class CustomersModel(BaseModel):
 
 
 class EmployeesModel(BaseModel):
-    employee_id: int
+    id: int
     last_name: str
     first_name: str
     title: Optional[str]
@@ -90,7 +90,7 @@ class OrderDetailsModel(BaseModel):
 
 
 class OrdersModel(BaseModel):
-    order_id: int
+    id: int
     customer_id: Optional[str]
     employee_id: Optional[int]
     order_date: Optional[date]
@@ -110,7 +110,7 @@ class OrdersModel(BaseModel):
 
 
 class ProductsModel(BaseModel):
-    product_id: int
+    id: int
     product_name: str
     supplier_id: Optional[int]
     category_id: Optional[int]
@@ -126,7 +126,7 @@ class ProductsModel(BaseModel):
 
 
 class RegionModel(BaseModel):
-    region_id: int
+    id: int
     region_description: str
 
     class Config:
@@ -134,7 +134,7 @@ class RegionModel(BaseModel):
 
 
 class ShippersModel(BaseModel):
-    shipper_id: int
+    id: int
     company_name: str
     phone: Optional[str]
 
@@ -143,7 +143,7 @@ class ShippersModel(BaseModel):
 
 
 class SuppliersModel(BaseModel):
-    supplier_id: int
+    id: int
     company_name: str
     contact_name: Optional[str]
     contact_title: Optional[str]
@@ -161,7 +161,7 @@ class SuppliersModel(BaseModel):
 
 
 class TerritoriesModel(BaseModel):
-    territory_id: str
+    id: str
     territory_description: str
     region_id: int
 
@@ -170,7 +170,7 @@ class TerritoriesModel(BaseModel):
 
 
 class UsStatesModel(BaseModel):
-    state_id: int
+    id: int
     state_name: Optional[str]
     state_abbr: Optional[str]
     state_region: Optional[str]
