@@ -1,0 +1,1 @@
+from .customer import crud as crud_customer
