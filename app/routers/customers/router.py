@@ -16,12 +16,12 @@ def get_db():
     finally:
         db.close()
 
-@router.get("/", response_model=List[schemas.CustomerSchema])
-async def read_customers(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    customers = get_customers(db, skip=skip, limit=limit)
-    if customers is None:
-        raise HTTPException(status_code=404, detail="Customers not found")
-    return customers
+# @router.get("/", response_model=List[schemas.CustomerSchema])
+# async def read_customers(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+#     customers = get_customers(db, skip=skip, limit=limit)
+#     if customers is None:
+#         raise HTTPException(status_code=404, detail="Customers not found")
+#     return customers
 
 # @router.get("/customer_demographics", response_model=List[CustomerDemographics])
 # async def read_customer_demographics(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
