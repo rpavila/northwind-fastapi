@@ -1,5 +1,12 @@
 from .category import crud as crud_category
 from .customer import crud as crud_customer
+from .customer_customer_demo import crud as crud_customer_customer
+from .customer_demographics import crud as crud_customer_demographics
+from .employee import crud as crud_employee
+from .employee_territory import crud as crud_employee_territory
+from .order import crud as crud_order
+from .order_detail import crud as crud_order_detail
+from .product import crud as crud_product
 from .region import crud as crud_region
 from .shipper import crud as crud_shipper
 from .supplier import crud as crud_supplier

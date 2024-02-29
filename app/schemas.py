@@ -230,3 +230,67 @@ class SupplierCreate(BaseModel):
     phone: Optional[str]
     fax: Optional[str]
     homepage: Optional[str]
+
+
+class ProductCreate(BaseModel):
+    product_name: str
+    supplier_id: int
+    category_id: int
+    quantity_per_unit: Optional[str]
+    unit_price: Optional[float]
+    units_in_stock: Optional[int]
+    units_on_order: Optional[int]
+    reorder_level: Optional[int]
+    discontinued: int
+
+class OrderCreate(BaseModel):
+    customer_id: str
+    employee_id: Optional[int]
+    order_date: Optional[date]
+    required_date: Optional[date]
+    shipped_date: Optional[date]
+    ship_via: Optional[int]
+    freight: Optional[float]
+    ship_name: Optional[str]
+    ship_address: Optional[str]
+    ship_city: Optional[str]
+    ship_region: Optional[str]
+    ship_postal_code: Optional[str]
+    ship_country: Optional[str]
+
+
+class OrderDetailsCreate(BaseModel):
+    order_id: int
+
+
+class EmployeeCreate(BaseModel):
+    last_name: str
+    first_name: str
+    title: Optional[str]
+    title_of_courtesy: Optional[str]
+    birth_date: Optional[date]
+    hire_date: Optional[date]
+    address: Optional[str]
+    city: Optional[str]
+    region: Optional[str]
+    postal_code: Optional[str]
+    country: Optional[str]
+    home_phone: Optional[str]
+    extension: Optional[str]
+    photo: Optional[bytes]
+    notes: Optional[str]
+    reports_to: Optional[int]
+    photo_path: Optional[str]
+
+
+class EmployeeTerritoriesCreate(BaseModel):
+    territory_id: str
+
+
+class CustomerCustomerDemoCreate(BaseModel):
+    customer_id: str
+    customer_type_id: str
+
+
+class CustomerDemographicsCreate(BaseModel):
+    customer_desc: Optional[str]
