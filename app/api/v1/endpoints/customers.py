@@ -10,7 +10,7 @@ from app.crud import crud_customer
 router = APIRouter()
 
 
-@router.get("/", response_model=List[schemas.CustomersModel])
+@router.get("/", response_model=List[schemas.CustomerSchema])
 async def read_all(skip: int = 0, limit: int = 100, db: Session = SessionDep):
     customers = crud_customer.get_all(db, skip=skip, limit=limit)
     if customers is None:
@@ -18,7 +18,7 @@ async def read_all(skip: int = 0, limit: int = 100, db: Session = SessionDep):
     return customers
 
 
-@router.get('/{pk}', response_model=schemas.CustomersModel)
+@router.get('/{pk}', response_model=schemas.CustomerSchema)
 async def read_one(pk: str, db: Session = SessionDep):
     instance = crud_customer.get(db, id=pk)
     if instance is None:
