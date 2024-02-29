@@ -177,3 +177,16 @@ class UsStatesModel(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class CustomerCreate(BaseModel):
+    company_name: str
+    contact_name: Optional[str]
+    contact_title: Optional[str]
+    address: Optional[str]
+    city: Optional[str]
+    region: Optional[str]
+    postal_code: Optional[str]
+    country: Optional[str]
+    phone: Optional[str]
+    fax: Optional[str]
