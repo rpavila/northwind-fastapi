@@ -29,7 +29,7 @@ class CustomerDemographicsModel(BaseModel):
         orm_mode = True
 
 
-class CustomersModel(BaseModel):
+class CustomerSchema(BaseModel):
     id: str
     company_name: str
     contact_name: Optional[str]
@@ -169,7 +169,7 @@ class TerritoriesModel(BaseModel):
         orm_mode = True
 
 
-class UsStatesModel(BaseModel):
+class UsStateSchema(BaseModel):
     id: int
     state_name: Optional[str]
     state_abbr: Optional[str]
