@@ -1,6 +1,6 @@
 from datetime import date
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, ConfigDict, Field, validator, field_validator, BeforeValidator
+from typing import Optional, Annotated
 
 
 class CategorySchema(BaseModel):
@@ -9,41 +9,53 @@ class CategorySchema(BaseModel):
     description: Optional[str]
     picture: Optional[bytes]
 
-    class Config:
-        orm_mode = True
+    # class Config:
+    #     orm_mode = True
 
 
 class CustomerCustomerDemoSchema(BaseModel):
     id: str
     customer_type_id: str
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 
 class CustomerDemographicsSchema(BaseModel):
     customer_type_id: str
     customer_desc: Optional[str]
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
+
+IdValidator = BeforeValidator(lambda id: id or '')
 
 
 class CustomerSchema(BaseModel):
     id: str
     company_name: str
     contact_name: Optional[str]
-    contact_title: Optional[str]
-    address: Optional[str]
-    city: Optional[str]
-    region: Optional[str]
-    postal_code: Optional[str]
-    country: Optional[str]
-    phone: Optional[str]
+    # contact_title: Optional[str]
+    # address: Optional[str]
+    # city: Optional[str]
+    # region: Optional[str]
+    # postal_code: Optional[str]
+    # country: Optional[str]
+    # phone: Optional[str]
     fax: Optional[str]
+    # fax: Annotated[str, IdValidator] = Field(default=None, validate_default=True)
 
-    class Config:
-        orm_mode = True
+    # model_config = ConfigDict(validate_assignment=True)
+    # class Config:
+    #     orm_mode = True
+
+    # @field_validator
+    # def set_fax(cls, value):
+    #     return value or 'Empty'
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        print(kwargs)
 
 
 class EmployeeSchema(BaseModel):
@@ -66,16 +78,16 @@ class EmployeeSchema(BaseModel):
     reports_to: Optional[int]
     photo_path: Optional[str]
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 
 class EmployeeTerritoriesSchema(BaseModel):
     employee_id: int
     territory_id: str
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 
 class OrderDetailsSchema(BaseModel):
@@ -85,8 +97,8 @@ class OrderDetailsSchema(BaseModel):
     quantity: int
     discount: float
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 
 class OrderSchema(BaseModel):
@@ -105,8 +117,8 @@ class OrderSchema(BaseModel):
     ship_postal_code: Optional[str]
     ship_country: Optional[str]
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 
 class ProductSchema(BaseModel):
@@ -121,16 +133,16 @@ class ProductSchema(BaseModel):
     reorder_level: Optional[int]
     discontinued: int
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 
 class RegionSchema(BaseModel):
     id: int
     region_description: str
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 
 class ShipperSchema(BaseModel):
@@ -138,8 +150,8 @@ class ShipperSchema(BaseModel):
     company_name: str
     phone: Optional[str]
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 
 class SupplierSchema(BaseModel):
@@ -156,8 +168,8 @@ class SupplierSchema(BaseModel):
     fax: Optional[str]
     homepage: Optional[str]
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 
 class TerritorySchema(BaseModel):
@@ -165,8 +177,8 @@ class TerritorySchema(BaseModel):
     territory_description: str
     region_id: int
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 
 class UsStateSchema(BaseModel):
@@ -175,8 +187,8 @@ class UsStateSchema(BaseModel):
     state_abbr: Optional[str]
     state_region: Optional[str]
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 
 class CustomerCreate(BaseModel):

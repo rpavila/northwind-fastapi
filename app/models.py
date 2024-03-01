@@ -192,6 +192,9 @@ class Customer(Base):
     postal_code = Column(String(10))
     country = Column(String(15))
     phone = Column(String(24))
-    fax = Column(String(24))
+    fax = Column(String(24), nullable=False)
 
     orders = relationship("Order", back_populates="customer")
+
+    # def __dict__(self):
+    #     return {}

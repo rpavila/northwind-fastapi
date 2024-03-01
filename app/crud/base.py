@@ -1,8 +1,8 @@
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, TypeVar, List
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
-from sqlalchemy.orm import Session, Query
+from sqlalchemy.orm import Session, Query, load_only
 
 ModelType = TypeVar("ModelType", bound=Any)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
@@ -24,13 +24,20 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     def get(self, db: Session, id: Any) -> ModelType | None:
         return db.query(self.model).filter(self.model.id == id).first()
 
-    def get_all(self, db: Session, skip: int = -1, limit: int = -1) -> list[ModelType]:
-        queryset: Query = db.query(self.model)
+    def get_all(self, db: Session, skip: int = -1, limit: int = -1, fields=[]) -> List[ModelType]:
+        query: Query = db.query(self.model)
         if skip >= 0:
-            queryset = queryset.offset(skip)
+            query = query.offset(skip)
         if limit >= 0:
-            queryset = queryset.limit(limit)
-        return queryset.all()
+            query = query.limit(limit)
+        if len(fields) > 0:
+            # x = getattr(self.model, 'company_name')
+            # y = self.model.company_name
+            # query = query.options(load_only([getattr(self.model, f) for f in fields]))
+            # query = query.options(load_only(self.model.id, self.model.company_name, raiseload=False))
+            query = query.with_entities(*[getattr(self.model, f) for f in fields])
+            # query = query.with_entities(self.model.id, self.model.company_name)
+        return query.all()
 
     def create(self, db: Session, *, obj_in: CreateSchemaType) -> ModelType:
         obj_in_data = jsonable_encoder(obj_in)
