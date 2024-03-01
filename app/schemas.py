@@ -1,12 +1,12 @@
 from datetime import date
 from pydantic import BaseModel, ConfigDict, Field, validator, field_validator, BeforeValidator
-from typing import Optional, Annotated
+from typing import Optional, Annotated, List
 
 
 class CategorySchema(BaseModel):
     id: int
     category_name: str
-    description: Optional[str]
+    description: str | None = None
     picture: Optional[bytes]
 
     # class Config:
@@ -23,7 +23,7 @@ class CustomerCustomerDemoSchema(BaseModel):
 
 class CustomerDemographicsSchema(BaseModel):
     customer_type_id: str
-    customer_desc: Optional[str]
+    customer_desc: str | None = None
 
 #     class Config:
 #         orm_mode = True
@@ -31,52 +31,26 @@ class CustomerDemographicsSchema(BaseModel):
 IdValidator = BeforeValidator(lambda id: id or '')
 
 
-class CustomerSchema(BaseModel):
-    id: str
-    company_name: str
-    contact_name: Optional[str]
-    # contact_title: Optional[str]
-    # address: Optional[str]
-    # city: Optional[str]
-    # region: Optional[str]
-    # postal_code: Optional[str]
-    # country: Optional[str]
-    # phone: Optional[str]
-    fax: Optional[str]
-    # fax: Annotated[str, IdValidator] = Field(default=None, validate_default=True)
-
-    # model_config = ConfigDict(validate_assignment=True)
-    # class Config:
-    #     orm_mode = True
-
-    # @field_validator
-    # def set_fax(cls, value):
-    #     return value or 'Empty'
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        print(kwargs)
-
 
 class EmployeeSchema(BaseModel):
     id: int
     last_name: str
     first_name: str
-    title: Optional[str]
-    # title_of_courtesy: Optional[str]
+    title: str | None = None
+    # title_of_courtesy: str | None = None
     birth_date: Optional[date]
     hire_date: Optional[date]
-    address: Optional[str]
-    city: Optional[str]
-    region: Optional[str]
-    postal_code: Optional[str]
-    country: Optional[str]
-    home_phone: Optional[str]
-    extension: Optional[str]
+    address: str | None = None
+    city: str | None = None
+    region: str | None = None
+    postal_code: str | None = None
+    country: str | None = None
+    home_phone: str | None = None
+    extension: str | None = None
     photo: Optional[bytes]
-    notes: Optional[str]
+    notes: str | None = None
     reports_to: Optional[int]
-    photo_path: Optional[str]
+    photo_path: str | None = None
 
 #     class Config:
 #         orm_mode = True
@@ -103,22 +77,22 @@ class OrderDetailsSchema(BaseModel):
 
 class OrderSchema(BaseModel):
     id: int
-    customer_id: Optional[str]
+    customer_id: str | None = None
     employee_id: Optional[int]
     order_date: Optional[date]
     required_date: Optional[date]
     shipped_date: Optional[date]
     ship_via: Optional[int]
     freight: Optional[float]
-    ship_name: Optional[str]
-    ship_address: Optional[str]
-    ship_city: Optional[str]
-    ship_region: Optional[str]
-    ship_postal_code: Optional[str]
-    ship_country: Optional[str]
+    ship_name: str | None = None
+    ship_address: str | None = None
+    ship_city: str | None = None
+    ship_region: str | None = None
+    ship_postal_code: str | None = None
+    ship_country: str | None = None
 
-#     class Config:
-#         orm_mode = True
+    class Config:
+        from_attributes = True
 
 
 class ProductSchema(BaseModel):
@@ -126,7 +100,7 @@ class ProductSchema(BaseModel):
     product_name: str
     supplier_id: Optional[int]
     category_id: Optional[int]
-    quantity_per_unit: Optional[str]
+    quantity_per_unit: str | None = None
     unit_price: Optional[float]
     units_in_stock: Optional[int]
     units_on_order: Optional[int]
@@ -148,7 +122,7 @@ class RegionSchema(BaseModel):
 class ShipperSchema(BaseModel):
     id: int
     company_name: str
-    phone: Optional[str]
+    phone: str | None = None
 
 #     class Config:
 #         orm_mode = True
@@ -157,16 +131,16 @@ class ShipperSchema(BaseModel):
 class SupplierSchema(BaseModel):
     id: int
     company_name: str
-    contact_name: Optional[str]
-    contact_title: Optional[str]
-    address: Optional[str]
-    city: Optional[str]
-    region: Optional[str]
-    postal_code: Optional[str]
-    country: Optional[str]
-    phone: Optional[str]
-    fax: Optional[str]
-    homepage: Optional[str]
+    contact_name: str | None = None
+    contact_title: str | None = None
+    address: str | None = None
+    city: str | None = None
+    region: str | None = None
+    postal_code: str | None = None
+    country: str | None = None
+    phone: str | None = None
+    fax: str | None = None
+    homepage: str | None = None
 
 #     class Config:
 #         orm_mode = True
@@ -183,9 +157,9 @@ class TerritorySchema(BaseModel):
 
 class UsStateSchema(BaseModel):
     id: int
-    state_name: Optional[str]
-    state_abbr: Optional[str]
-    state_region: Optional[str]
+    state_name: str | None = None
+    state_abbr: str | None = None
+    state_region: str | None = None
 
 #     class Config:
 #         orm_mode = True
@@ -193,15 +167,16 @@ class UsStateSchema(BaseModel):
 
 class CustomerCreate(BaseModel):
     company_name: str
-    contact_name: Optional[str]
-    contact_title: Optional[str]
-    address: Optional[str]
-    city: Optional[str]
-    region: Optional[str]
-    postal_code: Optional[str]
-    country: Optional[str]
-    phone: Optional[str]
-    fax: Optional[str]
+    contact_name: str | None = None
+    contact_title: str | None = None
+    address: str | None = None
+    city: str | None = None
+    region: str | None = None
+    postal_code: str | None = None
+    country: str | None = None
+    phone: str | None = None
+    fax: str | None = None
+
 
 
 class USStateCreate(BaseModel):
@@ -226,29 +201,29 @@ class ShipperCreate(BaseModel):
 
 class CategoryCreate(BaseModel):
     category_name: str
-    description: Optional[str]
+    description: str | None = None
     picture: Optional[bytes]
 
 
 class SupplierCreate(BaseModel):
     company_name: str
-    contact_name: Optional[str]
-    contact_title: Optional[str]
-    address: Optional[str]
-    city: Optional[str]
-    region: Optional[str]
-    postal_code: Optional[str]
-    country: Optional[str]
-    phone: Optional[str]
-    fax: Optional[str]
-    homepage: Optional[str]
+    contact_name: str | None = None
+    contact_title: str | None = None
+    address: str | None = None
+    city: str | None = None
+    region: str | None = None
+    postal_code: str | None = None
+    country: str | None = None
+    phone: str | None = None
+    fax: str | None = None
+    homepage: str | None = None
 
 
 class ProductCreate(BaseModel):
     product_name: str
     supplier_id: int
     category_id: int
-    quantity_per_unit: Optional[str]
+    quantity_per_unit: str | None = None
     unit_price: Optional[float]
     units_in_stock: Optional[int]
     units_on_order: Optional[int]
@@ -263,12 +238,12 @@ class OrderCreate(BaseModel):
     shipped_date: Optional[date]
     ship_via: Optional[int]
     freight: Optional[float]
-    ship_name: Optional[str]
-    ship_address: Optional[str]
-    ship_city: Optional[str]
-    ship_region: Optional[str]
-    ship_postal_code: Optional[str]
-    ship_country: Optional[str]
+    ship_name: str | None = None
+    ship_address: str | None = None
+    ship_city: str | None = None
+    ship_region: str | None = None
+    ship_postal_code: str | None = None
+    ship_country: str | None = None
 
 
 class OrderDetailsCreate(BaseModel):
@@ -278,21 +253,21 @@ class OrderDetailsCreate(BaseModel):
 class EmployeeCreate(BaseModel):
     last_name: str
     first_name: str
-    title: Optional[str]
-    title_of_courtesy: Optional[str]
+    title: str | None = None
+    title_of_courtesy: str | None = None
     birth_date: Optional[date]
     hire_date: Optional[date]
-    address: Optional[str]
-    city: Optional[str]
-    region: Optional[str]
-    postal_code: Optional[str]
-    country: Optional[str]
-    home_phone: Optional[str]
-    extension: Optional[str]
+    address: str | None = None
+    city: str | None = None
+    region: str | None = None
+    postal_code: str | None = None
+    country: str | None = None
+    home_phone: str | None = None
+    extension: str | None = None
     photo: Optional[bytes]
-    notes: Optional[str]
+    notes: str | None = None
     reports_to: Optional[int]
-    photo_path: Optional[str]
+    photo_path: str | None = None
 
 
 class EmployeeTerritoriesCreate(BaseModel):
@@ -305,4 +280,27 @@ class CustomerCustomerDemoCreate(BaseModel):
 
 
 class CustomerDemographicsCreate(BaseModel):
-    customer_desc: Optional[str]
+    customer_desc: str | None = None
+
+
+class CustomerSchema(BaseModel):
+    id: str
+    company_name: str
+    contact_name: str | None = None
+    contact_title: str | None = None
+    address: str | None = None
+    city: str | None = None
+    region: str | None = None
+    postal_code: str | None = None
+    country: str | None = None
+    phone: str | None = None
+    fax: str | None = None
+
+    orders: list[OrderSchema] = []
+
+    class Config:
+        from_attributes = True
+
+    # @field_validator
+    # def set_fax(cls, value):
+    #     return value or 'Empty'
