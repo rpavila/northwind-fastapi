@@ -1,8 +1,11 @@
 from typing import Any, Callable, List, Type, Generator, Optional, Union
 
 from fastapi import Depends, HTTPException
+from sqlalchemy.sql import false as FALSE
 
 from . import CRUDGenerator, NOT_FOUND, _utils
+from ._helpers import get_model, get_related_model, session_query, get_by, is_like_list
+from ._search import search
 from ._types import DEPENDENCIES, PAGINATION, PYDANTIC_SCHEMA as SCHEMA
 
 try:
@@ -73,10 +76,57 @@ class SQLAlchemyCRUDRouter(CRUDGenerator[SCHEMA]):
         ) -> List[Model]:
             skip, limit = pagination.get("skip"), pagination.get("limit")
 
+            # resource_id = None
+            resource_id = self.prefix[1:]
+            filters = []
+            sort = []
+            # Get the resource with the specified ID.
+            primary_resource = get_by(db, self.db_model, resource_id, 'id')
+            if primary_resource is None:
+                return []
+                # return error_response(404, detail=f'No resource with ID {escape(resource_id)}')
+            # Get the model of the specified relation.
+            related_model = get_related_model(self.model, relation_name)
+            if related_model is None:
+                # return error_response(404, detail=f'No such relation: {escape(relation_name)}')
+                return []
+            # Determine if this is a to-one or a to-many relation.
+            if is_like_list(primary_resource, relation_name):
+                model = get_model(self.db_model)
+                # related_model = get_related_model(model, relation_name)
+                related_model = get_related_model(model, self.db_model.__tablename__)
+                query = session_query(db, related_model)
+
+                # Filter by only those related values that are related to `instance`.
+                relationship = getattr(self.db_model, self.db_model.__tablename__)
+                primary_keys = {self.api_manager.primary_key_value(inst) for inst in relationship}
+                # If the relationship is empty, we can avoid a potentially expensive
+                # filtering operation by simply returning an intentionally empty
+                # query.
+                if not primary_keys:
+                    query = query.filter(FALSE())
+                    print(query)
+                # else:
+                #     query = query.filter(self.api_manager.primary_key_value(related_model).in_(primary_keys))
+
+                #     return self._get_collection_helper(resource=primary_resource,
+                #                                        relation_name=relation_name,
+                #                                        filters=filters, sort=sort)
+                # else:
+                #     resource = getattr(primary_resource, relation_name)
+                #     return self._get_resource_helper(resource=resource,
+                #                                      primary_resource=primary_resource,
+                #                                      relation_name=relation_name)
+
+            # db_models: List[Model] = (
+            #     db.query(self.db_model)
+            #     .order_by(getattr(self.db_model, self._pk))
+            #     .limit(limit)
+            #     .offset(skip)
+            #     .all()
+            # )
             db_models: List[Model] = (
-                db.query(self.db_model)
-                .order_by(getattr(self.db_model, self._pk))
-                .limit(limit)
+                search(session=db, model=self.db_model, filters=[], sort=[]).limit(limit)
                 .offset(skip)
                 .all()
             )
