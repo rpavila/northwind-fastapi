@@ -1,6 +1,6 @@
 from app.crud.base import CRUDBase
 from app.models import Region
-from app.schemas import RegionCreate
+from app.schemas.region import RegionCreate
 
 
 class CRUDRegion(CRUDBase[Region, RegionCreate, RegionCreate]):

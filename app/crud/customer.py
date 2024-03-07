@@ -1,6 +1,6 @@
 from app.crud.base import CRUDBase
 from app.models import Customer
-from app.schemas import CustomerCreate
+from app.schemas.customer import CustomerCreate
 
 
 class CRUDCustomer(CRUDBase[Customer, CustomerCreate, CustomerCreate]):

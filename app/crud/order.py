@@ -1,6 +1,6 @@
 from app.crud.base import CRUDBase
 from app.models import Order
-from app.schemas import OrderCreate
+from app.schemas.order import OrderCreate
 
 
 class CRUDOrder(CRUDBase[Order, OrderCreate, OrderCreate]):

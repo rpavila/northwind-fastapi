@@ -1,6 +1,6 @@
 from app.crud.base import CRUDBase
 from app.models import Category
-from app.schemas import CategoryCreate
+from app.schemas.category import CategoryCreate
 
 
 class CRUDCategory(CRUDBase[Category, CategoryCreate, CategoryCreate]):

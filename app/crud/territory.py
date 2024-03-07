@@ -1,6 +1,6 @@
 from app.crud.base import CRUDBase
 from app.models import Territory
-from app.schemas import TerritoryCreate
+from app.schemas.territory import TerritoryCreate
 
 
 class CRUDTerritory(CRUDBase[Territory, TerritoryCreate, TerritoryCreate]):

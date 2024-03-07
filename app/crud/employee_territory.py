@@ -1,6 +1,6 @@
 from app.crud.base import CRUDBase
 from app.models import EmployeeTerritories
-from app.schemas import EmployeeTerritoriesCreate
+from app.schemas.employee import EmployeeTerritoriesCreate
 
 
 class CRUDEmployeeTerritories(CRUDBase[EmployeeTerritories, EmployeeTerritoriesCreate, EmployeeTerritoriesCreate]):

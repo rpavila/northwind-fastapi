@@ -1,6 +1,6 @@
 from app.crud.base import CRUDBase
 from app.models import Shipper
-from app.schemas import ShipperCreate
+from app.schemas.shipper import ShipperCreate
 
 
 class CRUDShipper(CRUDBase[Shipper, ShipperCreate, ShipperCreate]):

@@ -1,6 +1,6 @@
 from app.crud.base import CRUDBase
 from app.models import CustomerDemographics
-from app.schemas import CustomerDemographicsCreate
+from app.schemas.customer import CustomerDemographicsCreate
 
 
 class CRUDCustomerDemographics(CRUDBase[CustomerDemographics, CustomerDemographicsCreate, CustomerDemographicsCreate]):

@@ -1,6 +1,6 @@
 from app.crud.base import CRUDBase
 from app.models import USState
-from app.schemas import USStateCreate
+from app.schemas.us_state import USStateCreate
 
 
 class CRUDUSState(CRUDBase[USState, USStateCreate, USStateCreate]):
