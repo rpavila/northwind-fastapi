@@ -15,11 +15,10 @@ DataT = TypeVar('DataT')
 class Response(BaseModel, Generic[DataT]):
     data: Optional[DataT] = None
 
-# model = create_model()
 
-# @router.get("", response_model=List[schemas.CustomerSchema], response_model_exclude_unset=True)
-@router.get("")
-async def read_all(skip: int = 0, limit: int = 100, fields=[], db: Session = SessionDep):
+# @router.get("")
+@router.get("", response_model=list[schemas.CustomerSchema])
+async def read_all(skip: int = 0, limit: int = 100, fields='', db: Session = SessionDep):
     fields = fields.split(',')
     items = crud_module.get_all(db, skip=skip, limit=limit, fields=fields)
     if items is None:
@@ -31,13 +30,19 @@ async def read_all(skip: int = 0, limit: int = 100, fields=[], db: Session = Ses
     # print(fields, f)
     # print(list(models.Customer.__dict__.keys()))
 
-    LangText = create_model(
-        "Customer",
-        **{lang: (Optional[str], "") for lang in f},  # dynamically created fields
-    )
+    # LangText = create_model(
+    #     "CustomerSchema",
+    #     **{lang: (Optional[str], "") for lang in f},  # dynamically created fields
+    # )
+    #
+    # response = Response[List[LangText]](data=[schemas.CustomerSchema.from_orm(i) for i in items])
+    # return response
 
-    response = Response[List[LangText]](data=[i._asdict() for i in items])
-    return response.model_dump()
+    # result = []
+    # for i in items:
+    #     schema = schemas.CustomerSchema.model_validate(i, from_attributes=True)
+    #     result.append(schema)
+    return [schemas.CustomerSchema.model_validate(i, from_attributes=True) for i in items]
 
 
 @router.get('/{pk}', response_model=schemas.CustomerSchema)
