@@ -41,10 +41,10 @@ class Settings(BaseSettings):
     #         return None
     #     return v
 
-    POSTGRES_HOST: str
-    POSTGRES_USER: str
-    POSTGRES_PASSWORD: str
-    POSTGRES_DB: str
+    DATABASE_HOST: str
+    DATABASE_USER: str
+    DATABASE_PASSWORD: str
+    DATABASE_DB: str
     SQLALCHEMY_DATABASE_URI: PostgresDsn | None = None
 
     @field_validator("SQLALCHEMY_DATABASE_URI", mode="before")
@@ -53,10 +53,10 @@ class Settings(BaseSettings):
             return v
         return PostgresDsn.build(
             scheme="postgresql+psycopg",
-            username=info.data.get("POSTGRES_USER"),
-            password=info.data.get("POSTGRES_PASSWORD"),
-            host=info.data.get("POSTGRES_HOST"),
-            path=f"{info.data.get('POSTGRES_DB') or ''}",
+            username=info.data.get("DATABASE_USER"),
+            password=info.data.get("DATABASE_PASSWORD"),
+            host=info.data.get("DATABASE_HOST"),
+            path=f"{info.data.get('DATABASE_DB') or ''}",
         )
 
     # SMTP_TLS: bool = True
